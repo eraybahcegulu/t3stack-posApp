@@ -8,7 +8,7 @@ import NotFoundInfo from './NotFoundInfo';
 const GetCategories = () => {
     const { data, isLoading} = api.category.getAll.useQuery();
     if(isLoading) return <LoadingSpinner/> 
-    if(data && data.length ===0) return  <NotFoundInfo name={'Category'}/>  
+    if(data && data.length ===0) return  <div className='min-w-[150px] min-h-[60px] flex justify-center items-center'><NotFoundInfo name={'Category'}/> </div>  
     return (
         <>
             {

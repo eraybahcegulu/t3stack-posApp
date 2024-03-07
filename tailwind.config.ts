@@ -12,6 +12,9 @@ export default {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
+      gridTemplateColumns:{
+        card: "repeat(auto-fill, minmax(200px, 1fr))"
+      },
     },
   },
   darkMode: "class",

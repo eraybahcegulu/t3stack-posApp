@@ -13,7 +13,7 @@ interface Res {
 
 const CreateCategory = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-
+    const ctx = api.useContext();
     const handleOpen = () => {
         onOpen();
     }
@@ -23,6 +23,7 @@ const CreateCategory = () => {
             if (res.error) {
                 toast.error(res.error)
             } else if (res.message) {
+                void ctx.category.getAll.invalidate();
                 toast.success(res.message)
             }
             onClose();
@@ -62,8 +63,8 @@ const CreateCategory = () => {
                                 initialValues={{ name: "" }}
                                 validate={values => {
                                     const errors: { name?: string } = {};
-                                    if (!values.name) {
-                                        errors.name = toast.error("Category name required");
+                                    if (values.name.length === 0) {
+                                        errors.name = toast.error("Category required to create");
                                     }
                                     return errors;
                                 }}
@@ -80,7 +81,7 @@ const CreateCategory = () => {
                                         {
                                             createCategory.isLoading
                                                 ?
-                                                <LoadingButton />
+                                                <LoadingButton name={'Creating'}/>
                                                 :
                                                 <Button type='submit' color="primary">
                                                     Create

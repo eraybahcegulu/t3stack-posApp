@@ -1,10 +1,10 @@
 import { Button } from '@nextui-org/react'
 import React from 'react'
 
-const LoadingButton = () => {
+const LoadingButton = ({name}: {name:string}) => {
     return (
         <Button color="primary" isLoading>
-            Loading
+            {name}
         </Button>
     )
 }

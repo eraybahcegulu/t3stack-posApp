@@ -4,6 +4,7 @@ import { api } from 'app/trpc/react';
 import React from 'react'
 import LoadingSpinner from './LoadingSpinner';
 import NotFoundInfo from './NotFoundInfo';
+import { Button } from '@nextui-org/react';
 
 const GetCategories = () => {
     const { data, isLoading} = api.category.getAll.useQuery();
@@ -14,14 +15,18 @@ const GetCategories = () => {
             {
                 data?.map(
                     (category) => (
-                        <div key={category.id} className='bg-gray-50 rounded-full flex items-center justify-center min-h-[60px] min-w-[150px] max-h-[50px] 
-                        max-w-[150px] overflow-auto text-black hover:scale-110 cursor-pointer  transition-all'>
+                        <Button key={category.id} className=' bg-gradient-to-tr from-white to-yellow-100 
+                        text-black flex items-center justify-center 
+                        min-h-[60px] min-w-[150px] max-h-[50px] 
+                        max-w-[150px] overflow-auto hover:scale-110 cursor-pointer transition-all'
+                        radius='full' variant="shadow">
                             <span className='w-full justify-center text-center'>
                                 {category.name}
                             </span>
-                        </div>
+                        </Button>
                     ))
             }
+
         </>
     )
 }

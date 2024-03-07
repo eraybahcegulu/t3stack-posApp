@@ -14,6 +14,7 @@ export default async function Home() {
       <Header />
       <div className="main flex-1  max-xl:mb-20 flex flex-row gap-4 p-4 justify-start max-md:flex-col overflow-auto">
         <Categories />
+
         <Products />
         <Cart />
       </div>

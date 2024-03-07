@@ -13,7 +13,7 @@ export default {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       gridTemplateColumns:{
-        card: "repeat(auto-fill, minmax(200px, 1fr))"
+        card: "repeat(auto-fill, minmax(190px, 1fr))"
       },
     },
   },

@@ -1,29 +1,21 @@
 
 import { unstable_noStore as noStore } from "next/cache";
 import Header from "./_components/Header";
+import Categories from "./_components/Categories";
+import Products from "./_components/Products";
+import Cart from "./_components/Cart";
 
 
 export default async function Home() {
   noStore();
 
   return (
-    <main className="min-h-screen flex flex-col bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
+    <main className="min-h-screen max-h-screen flex flex-col bg-gradient-to-b from-[#2a0f33] to-[#490581] text-white">
       <Header />
-      <div className="main grow max-xl:mb-20 flex border border-black flex-row  justify-between max-md:flex-col overflow-auto">
-
-        <div className="flex flex-col border border-black min-w-[200px]">
-          <span>a</span>
-          <span>a</span>
-        </div>
-
-        <div className="border border-black grow">
-          Products
-        </div>
-
-        <div className="border border-black min-w-[300px] ">
-          Cart
-        </div>
-
+      <div className="main flex-1  max-xl:mb-20 flex flex-row gap-3 p-4 justify-between max-md:flex-col overflow-auto">
+        <Categories />
+        <Products />
+        <Cart />
       </div>
     </main>
   );

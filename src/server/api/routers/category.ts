@@ -14,13 +14,13 @@ export const categoryRouter = createTRPCRouter({
             await new Promise((resolve) => setTimeout(resolve, 1000));
 
             const existCategory = await ctx.db.category.findFirst({
-                where:{
+                where: {
                     name: input.name
                 }
             })
 
-            if(existCategory){
-                return { error: 'Category already exist'}
+            if (existCategory) {
+                return { error: 'Category already exist' }
             }
 
             await ctx.db.category.create({
@@ -32,5 +32,12 @@ export const categoryRouter = createTRPCRouter({
             return { message: `Category created` };
         }),
 
+    getAll: publicProcedure.query(async ({ ctx }) => {
+        const categories = await ctx.db.category.findMany({
+            orderBy: { createdAt: "desc" },
+        });
+
+        return categories;
+    }),
 
 });

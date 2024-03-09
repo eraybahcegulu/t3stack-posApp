@@ -11,8 +11,8 @@ const DeleteCategory = ({ id }: { id: number }) => {
     const ctx = api.useContext();
 
     const deleteCategory = api.category.delete.useMutation({
-        onSuccess: () => {
-            void ctx.category.getAll.invalidate();
+        onSuccess: async () => {
+            await ctx.category.getAll.invalidate();
         },
         onError: (error) => {
             toast.error(error.message)

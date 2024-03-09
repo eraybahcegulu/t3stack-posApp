@@ -13,15 +13,17 @@ interface Res {
 
 const CreateProduct = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const ctx = api.useContext();
     const handleOpen = () => {
         onOpen();
     }
 
     const createProduct = api.product.create.useMutation({
-        onSuccess: (res: Res) => {
+        onSuccess: async (res: Res) => {
             if (res.error) {
                 toast.error(res.error)
             } else if (res.message) {
+                await ctx.product.getAll.invalidate();
                 toast.success(res.message)
             }
             onClose();
@@ -45,7 +47,7 @@ const CreateProduct = () => {
             </div>
             <Modal
                 placement='center'
-                size='2xl'
+                size='xs'
                 isOpen={isOpen}
                 onClose={onClose}
             /*
@@ -73,7 +75,7 @@ const CreateProduct = () => {
                                     return errors;
                                 }}
                                 onSubmit={async (values) => {
-                                    createProduct.mutate({ name: values.name, image: values.image, price: values.price });
+                                    createProduct.mutate({ name: values.name, image: values.image, price: parseFloat(values.price) });
                                 }}
                             >
                                 <Form>
@@ -129,7 +131,16 @@ const ImageInput = ({ field }: FieldProps) => {
 };
 
 const PriceInput = ({ field }: FieldProps) => {
-    return <Input maxLength={20} {...field} variant='bordered' label="Price" />;
+    return <Input type="number" maxLength={20} {...field}
+        placeholder="0.00"
+        variant='bordered'
+        label="Price"
+        startContent={
+            <div className="pointer-events-none flex items-center">
+                <span className="text-default-400 text-small">$</span>
+            </div>
+        }
+    />;
 };
 
 export default CreateProduct

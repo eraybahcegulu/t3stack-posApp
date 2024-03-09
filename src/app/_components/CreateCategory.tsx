@@ -19,11 +19,11 @@ const CreateCategory = () => {
     }
 
     const createCategory = api.category.create.useMutation({
-        onSuccess: (res: Res) => {
+        onSuccess: async (res: Res) => {
             if (res.error) {
                 toast.error(res.error)
             } else if (res.message) {
-                void ctx.category.getAll.invalidate();
+                await ctx.category.getAll.invalidate();
                 toast.success(res.message)
             }
             onClose();

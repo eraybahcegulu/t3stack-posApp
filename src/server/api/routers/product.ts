@@ -12,7 +12,7 @@ export const productRouter = createTRPCRouter({
             z.object({
                 name: z.string().min(1, { message: 'Cannot be empty' }).max(20, { message: 'Max length 20 characters' }),
                 image: z.string().min(1, { message: 'Cannot be empty' }).max(300, { message: 'Max length 300 characters' }),
-                price: z.string().min(1, { message: 'Cannot be empty' }).max(20, { message: 'Max length 20 characters' }),
+                price: z.number().min(1, { message: 'Cannot be empty' }),
             })
         )
         .mutation(async ({ ctx, input }) => {
@@ -30,4 +30,12 @@ export const productRouter = createTRPCRouter({
             return { message: `Product created` };
         }),
 
+        getAll: publicProcedure.query(async ({ ctx }) => {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            const products = await ctx.db.product.findMany({
+                orderBy: { createdAt: "desc" },
+            });
+    
+            return products;
+        }),
 });

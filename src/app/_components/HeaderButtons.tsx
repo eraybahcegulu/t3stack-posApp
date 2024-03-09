@@ -10,6 +10,7 @@ import { BsCurrencyDollar } from 'react-icons/bs'
 import { FaBox } from 'react-icons/fa'
 import { FiLogOut, FiShoppingCart } from 'react-icons/fi'
 import CategoriesModal from './CategoriesModal';
+import ProductsModal from './ProductsModal';
 
 const HeaderButtons = () => {
 
@@ -24,13 +25,7 @@ const HeaderButtons = () => {
 
             <div className="flex flex-row justify-center h-20 items-center max-md:gap-7 gap-10 max-xl:z-20 text-4xl max-md:text-xl w-auto max-xl:fixed max-xl:bg-gradient-to-b from-[#ffffff] to-[#ab74d3] bottom-0 max-xl:w-full p-2 ">
                 <CategoriesModal />
-
-                <Badge content={0} color="default">
-                    <div className='flex flex-col justify-center items-center cursor-pointer text-violet-500 hover:scale-110 transition-all'>
-                        <FaBox />
-                        <span className='text-sm max-md:text-xs'>Products</span>
-                    </div>
-                </Badge>
+                <ProductsModal/>
 
                 <Badge content={0} color="default">
                     <div className='flex flex-col justify-center items-center cursor-pointer text-green-700 hover:scale-110 transition-all'>

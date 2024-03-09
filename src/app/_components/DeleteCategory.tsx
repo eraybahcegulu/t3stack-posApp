@@ -7,7 +7,7 @@ import React from 'react'
 import toast from 'react-hot-toast';
 import LoadingButton from './LoadingButton';
 
-const DeleteCategory = ({ id}: { id: number }) => {
+const DeleteCategory = ({ id }: { id: number }) => {
     const ctx = api.useContext();
 
     const deleteCategory = api.category.delete.useMutation({
@@ -21,8 +21,6 @@ const DeleteCategory = ({ id}: { id: number }) => {
 
     return (
         <>
-
-        
             {
                 deleteCategory.isLoading
                     ?

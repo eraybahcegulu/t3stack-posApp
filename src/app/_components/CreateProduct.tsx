@@ -11,19 +11,17 @@ interface Res {
     error?: string;
 }
 
-const CreateCategory = () => {
+const CreateProduct = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const ctx = api.useContext();
     const handleOpen = () => {
         onOpen();
     }
 
-    const createCategory = api.category.create.useMutation({
+    const createProduct = api.product.create.useMutation({
         onSuccess: (res: Res) => {
             if (res.error) {
                 toast.error(res.error)
             } else if (res.message) {
-                void ctx.category.getAll.invalidate();
                 toast.success(res.message)
             }
             onClose();
@@ -47,7 +45,7 @@ const CreateCategory = () => {
             </div>
             <Modal
                 placement='center'
-                size='xs'
+                size='2xl'
                 isOpen={isOpen}
                 onClose={onClose}
             /*
@@ -60,29 +58,50 @@ const CreateCategory = () => {
                     {() => (
                         <>
                             <Formik
-                                initialValues={{ name: "" }}
+                                initialValues={{ name: "", image: "", price: "" }}
                                 validate={values => {
-                                    const errors: { name?: string } = {};
+                                    const errors: { name?: string, image?: string, price?: string } = {};
                                     if (values.name.length === 0) {
-                                        errors.name = "Category required to create";
+                                        errors.name = "Product name required to create";
+                                    }
+                                    if (values.image.length === 0) {
+                                        errors.image = "Product image required to create";
+                                    }
+                                    if (values.price.length === 0) {
+                                        errors.price = "Product price required to create";
                                     }
                                     return errors;
                                 }}
                                 onSubmit={async (values) => {
-                                    createCategory.mutate({ name: values.name });
+                                    createProduct.mutate({ name: values.name, image: values.image, price: values.price });
                                 }}
                             >
                                 <Form>
-                                    <ModalHeader className="flex flex-col gap-1">Create Category</ModalHeader>
+                                    <ModalHeader className="flex flex-col gap-1">Create Product</ModalHeader>
                                     <ModalBody>
-                                        <div>
-                                            <Field name="name" component={NameInput} />
-                                            <ErrorMessage name="name" component="div" className="text-red-500" />
+                                        <div className='flex flex-col gap-3'>
+
+                                            <div>
+                                                <Field name="name" component={NameInput} />
+                                                <ErrorMessage name="name" component="div" className="text-red-500" />
+                                            </div>
+
+                                            <div>
+                                                <Field name="image" component={ImageInput} />
+                                                <ErrorMessage name="image" component="div" className="text-red-500" />
+                                            </div>
+
+                                            <div>
+                                                <Field name="price" component={PriceInput} />
+                                                <ErrorMessage name="price" component="div" className="text-red-500" />
+                                            </div>
+
                                         </div>
+
                                     </ModalBody>
                                     <ModalFooter>
                                         {
-                                            createCategory.isLoading
+                                            createProduct.isLoading
                                                 ?
                                                 <LoadingButton color={'primary'} />
                                                 :
@@ -102,7 +121,15 @@ const CreateCategory = () => {
 }
 
 const NameInput = ({ field }: FieldProps) => {
-    return <Input maxLength={20} {...field} variant='bordered' label="Category" />;
+    return <Input maxLength={20} {...field} variant='bordered' label="Name" />;
 };
 
-export default CreateCategory
+const ImageInput = ({ field }: FieldProps) => {
+    return <Input maxLength={300} {...field} variant='bordered' label="Image" />;
+};
+
+const PriceInput = ({ field }: FieldProps) => {
+    return <Input maxLength={20} {...field} variant='bordered' label="Price" />;
+};
+
+export default CreateProduct

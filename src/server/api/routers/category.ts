@@ -33,6 +33,7 @@ export const categoryRouter = createTRPCRouter({
         }),
 
     getAll: publicProcedure.query(async ({ ctx }) => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         const categories = await ctx.db.category.findMany({
             orderBy: { createdAt: "desc" },
         });

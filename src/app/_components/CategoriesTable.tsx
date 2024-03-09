@@ -9,7 +9,6 @@ import NotFoundInfo from './NotFoundInfo';
 
 const CategoriesTable = () => {
     const { data} = api.category.getAll.useQuery();
-
     const columns = [
         {
             key: "name",
@@ -20,7 +19,6 @@ const CategoriesTable = () => {
             label: "ACTIONS",
         },
     ];
-    
     if (data && data.length === 0) return <div className='min-w-[150px] min-h-[60px] flex justify-center items-center'> <NotFoundInfo content={'Category not found.'} /> </div>
 
     return (

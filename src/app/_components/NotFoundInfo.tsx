@@ -1,9 +1,9 @@
 import { Chip } from '@nextui-org/react'
 import React from 'react'
 
-const NotFoundInfo = ({name} : {name:string}) => {
+const NotFoundInfo = ({content} : {content:string}) => {
     return (
-        <Chip color="warning" variant="flat">{name} not found.</Chip>
+        <Chip className='m-4 p-4' color="warning" variant="flat">{content} </Chip>
     )
 }
 

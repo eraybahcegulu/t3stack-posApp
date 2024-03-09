@@ -40,7 +40,7 @@ const CreateCategory = () => {
     })
     return (
         <>
-            <div className='flex items-center justify-center min-h-[60px] min-w-[100px] max-h-[50px] max-w-[100px] overflow-auto'>
+            <div className='flex text-white items-center justify-center min-h-[60px] min-w-[100px] max-h-[50px] max-w-[100px] overflow-auto'>
                 <span className='w-full flex justify-center items-center '>
                     <IoAdd className='text-5xl  transition-all hover:scale-125 cursor-pointer' onClick={handleOpen} />
                 </span>
@@ -81,7 +81,7 @@ const CreateCategory = () => {
                                         {
                                             createCategory.isLoading
                                                 ?
-                                                <LoadingButton name={'Creating'}/>
+                                                <LoadingButton color={'primary'}/>
                                                 :
                                                 <Button type='submit' color="primary">
                                                     Create
@@ -99,7 +99,7 @@ const CreateCategory = () => {
 }
 
 const MyInput = ({ field }: FieldProps) => {
-    return <Input {...field} variant='bordered' label="Category" />;
+    return <Input maxLength={20} {...field} variant='bordered' label="Category" />;
 };
 
 export default CreateCategory

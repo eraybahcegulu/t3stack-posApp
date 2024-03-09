@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
-const Products = () => {
 
+const ProductsSection = () => {
     return (
         <div className="grow max-h-full overflow-x-auto p-4">
             <div className='grid grid-cols-card gap-8'>
@@ -141,4 +141,4 @@ const Products = () => {
     )
 }
 
-export default Products
+export default ProductsSection

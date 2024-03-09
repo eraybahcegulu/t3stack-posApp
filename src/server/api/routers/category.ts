@@ -8,7 +8,7 @@ import {
 export const categoryRouter = createTRPCRouter({
 
     create: publicProcedure
-        .input(z.object({ name: z.string().min(1, { message: 'Cannot be empty' }).max(150, { message: 'Max length 150 characters' }) }))
+        .input(z.object({ name: z.string().min(1, { message: 'Cannot be empty' }).max(20, { message: 'Max length 20 characters' }) }))
         .mutation(async ({ ctx, input }) => {
             // simulate a slow db call
             await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -39,5 +39,27 @@ export const categoryRouter = createTRPCRouter({
 
         return categories;
     }),
+
+    delete: publicProcedure
+        .input(z.object({ id: z.number().min(1) }))
+        .mutation(async ({ ctx, input }) => {
+            // simulate a slow db call
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            const existingPost = await ctx.db.category.findFirst({
+                where: { id: input.id },
+            });
+
+            if (!existingPost) {
+                return { error: `Failed. Category not found.` };
+            }
+
+            await ctx.db.category.delete({
+                where: {
+                    id: existingPost.id
+                }
+            })
+
+            return { message: `Category deleted successfully` };
+        }),
 
 });

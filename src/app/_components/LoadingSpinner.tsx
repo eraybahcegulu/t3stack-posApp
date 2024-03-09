@@ -5,7 +5,7 @@ import {Spinner} from "@nextui-org/react";
 
 const LoadingSpinner = () => {
     return (
-        <Spinner color="default" />
+        <Spinner className='items-center justify-center' color="default" />
     )
 }
 

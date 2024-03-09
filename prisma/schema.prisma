@@ -23,7 +23,7 @@ model Product {
     id        Int      @id @default(autoincrement())
     name      String
     image     String
-    price     String
+    price     Float
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 

@@ -9,11 +9,14 @@ import CreateProduct from './CreateProduct';
 import { useSearchStore } from '../zustand/searchStore'
 import { useDispatch } from 'react-redux';
 import { addToCart } from "../redux-toolkit/cartSlice";
+import { useCategoryStore } from '../zustand/categoryStore';
 
 const GetProducts = () => {
     const { data, isLoading } = api.product.getAll.useQuery();
     const { text } = useSearchStore();
+    const { categoryId } = useCategoryStore();
     const dispatch = useDispatch();
+
     if (isLoading) return <div className='h-full w-full flex justify-center items-center'> <LoadingSpinner />  </div>
     if (data && data.length === 0) return <div className='min-w-[150px] min-h-[60px] flex flex-col justify-center items-center'>
         <NotFoundInfo content={'Product not found.'} />
@@ -21,7 +24,8 @@ const GetProducts = () => {
     </div>
 
     const filteredProducts = data?.filter((product) =>
-        product.name.toLowerCase().includes(text.toLowerCase())
+        product.name.toLowerCase().includes(text.toLowerCase()) &&
+        (categoryId === ''|| product.categoryId === parseInt(categoryId))
     );
 
     return (
@@ -55,4 +59,4 @@ const GetProducts = () => {
     )
 }
 
-export default GetProducts
+export default GetProducts;

@@ -7,7 +7,7 @@ import { ArrowRightOutlined, MinusOutlined, PlusOutlined } from '@ant-design/ico
 import { Image } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
 import { type RootState } from '../store';
-import { incrementQuantity, decrementQuantity, clearCart } from '../redux-toolkit/cartSlice'
+import { increaseQuantity, decreaseQuantity, clearCart } from '../redux-toolkit/cartSlice'
 
 const CartSection = () => {
     const cart = useSelector((state: RootState) => state.cart);
@@ -37,12 +37,11 @@ const CartSection = () => {
                                     </div>
 
                                     <div className=' flex flex-col justify-center gap-1 items-center'>
-                                        <Chip onClick={() => dispatch(incrementQuantity(product))} className='hover:scale-105 transition-all cursor-pointer' color="warning" variant="shadow" > <PlusOutlined className='text-2xl p-1' /></Chip>
-
+                                        <Chip onClick={() => dispatch(increaseQuantity(product))}
+                                            className='hover:scale-105 transition-all cursor-pointer' color="warning" variant="shadow" > <PlusOutlined className='text-2xl p-1' /></Chip>
                                         <span className='text-3xl pb-0'>  {product.quantity} </span>
-
-
-                                        <Chip onClick={() => dispatch(decrementQuantity(product))} className='hover:scale-105 transition-all cursor-pointer' color="warning" variant="shadow"> <MinusOutlined className='text-2xl p-1' /></Chip>
+                                        <Chip onClick={() => dispatch(decreaseQuantity(product))}
+                                            className='hover:scale-105 transition-all cursor-pointer' color="warning" variant="shadow"> <MinusOutlined className='text-2xl p-1' /></Chip>
                                     </div>
                                 </div>
 

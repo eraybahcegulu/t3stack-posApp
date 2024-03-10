@@ -99,14 +99,14 @@ export const useCartStore = create<CartState>((set) => {
                 return { products: updatedProducts };
             }),
 
-        incrementQuantity: (productId: number) =>
+        increaseQuantity: (productId: number) =>
             set((state) => ({
                 products: state.products.map((p: Product) =>
                     p.id === productId ? { ...p, quantity: p.quantity ? p.quantity + 1 : 1 } : p
                 ),
             })),
 
-        decrementQuantity: (productId: number) =>
+        decreaseQuantity: (productId: number) =>
             set((state) => ({
                 products: state.products.map((p: Product) =>
                     p.id === productId && p.quantity && p.quantity > 1 ? { ...p, quantity: p.quantity - 1 } : p

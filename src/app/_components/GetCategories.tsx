@@ -15,7 +15,7 @@ const GetCategories = () => {
             {
                 data?.map(
                     (category) => (
-                        <Button key={category.id} className='bg-gray-50 rounded-full flex items-center justify-center min-h-[60px] min-w-[200px] max-h-[60px] 
+                        <Button key={category.id} className='bg-gray-50 rounded-full flex items-center justify-center min-h-[50px] min-w-[200px] max-h-[50px] 
                         max-w-[200px]  text-black cursor-pointer transition-all'>
                             <span className='w-full overflow-auto justify-center text-center'>
                                 {category.name}

@@ -54,7 +54,7 @@ const EditProductModal = ({ product }: { product: Product }) => {
             <Button onClick={handleOpen} variant="shadow"> <EditOutlined /></Button>
             <Modal
                 className='dark text-white'
-                size='md'
+                size='sm'
                 isOpen={isOpen}
                 onClose={onClose}
             >
@@ -73,6 +73,9 @@ const EditProductModal = ({ product }: { product: Product }) => {
                                     }
                                     if (values.price.length === 0) {
                                         errors.price = "Product price required to create";
+                                    }
+                                    if (parseFloat(values.price) < 0) {
+                                        errors.price = "Product price must be greater than 0";
                                     }
 
                                     return errors;

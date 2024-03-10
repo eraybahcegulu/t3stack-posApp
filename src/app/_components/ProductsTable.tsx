@@ -1,7 +1,6 @@
 "use client"
 
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Button } from "@nextui-org/react";
-import { EditOutlined } from '@ant-design/icons';
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from "@nextui-org/react";
 import { api } from 'app/trpc/react';
 import NotFoundInfo from './NotFoundInfo';
 import { Image } from "@nextui-org/react";

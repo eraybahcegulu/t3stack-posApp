@@ -95,6 +95,9 @@ const EditProductModal = ({ product }: { product: Product }) => {
                                     return errors;
                                 }}
                                 onSubmit={async (values) => {
+                                    if (!selectedCategory) {
+                                        return toast.error('Product category required to edit')
+                                    }
                                     if (
                                         values.name === product.name
                                         && values.image === product.image

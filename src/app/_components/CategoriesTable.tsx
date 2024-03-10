@@ -1,14 +1,16 @@
 "use client"
 
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Button } from "@nextui-org/react";
-import { EditOutlined } from '@ant-design/icons';
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from "@nextui-org/react";
+
 import { api } from 'app/trpc/react';
 import DeleteCategory from './DeleteCategory';
 import NotFoundInfo from './NotFoundInfo';
+import EditCategoryModal from "./EditCategoryModal";
 
 
 const CategoriesTable = () => {
-    const { data} = api.category.getAll.useQuery();
+    const { data } = api.category.getAll.useQuery();
+
     const columns = [
         {
             key: "name",
@@ -36,7 +38,7 @@ const CategoriesTable = () => {
                                         if (columnKey === "actions") {
                                             return (
                                                 <TableCell className='flex flex-row gap-2'>
-                                                    <Button variant="shadow"> <EditOutlined /></Button>
+                                                    <EditCategoryModal category={item} />
                                                     <DeleteCategory id={item.id} />
                                                 </TableCell>
                                             );

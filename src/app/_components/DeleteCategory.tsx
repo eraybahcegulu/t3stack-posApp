@@ -32,10 +32,6 @@ const DeleteCategory = ({ id }: { id: number }) => {
                         (
                             deleteCategory.mutate({ id }))
                         }
-                        style={{
-                            opacity: deleteCategory.isLoading ? 0.5 : 1,
-                            pointerEvents: deleteCategory.isLoading ? 'none' : 'auto'
-                        }}
                         color="danger" variant="shadow"> <DeleteOutlined />
                     </Button>
             }

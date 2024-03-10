@@ -5,13 +5,21 @@ import React from 'react'
 import LoadingSpinner from './LoadingSpinner';
 import NotFoundInfo from './NotFoundInfo';
 import { Card, CardBody, CardFooter, Image } from '@nextui-org/react';
+import CreateProduct from './CreateProduct';
 
 const GetProducts = () => {
     const { data, isLoading } = api.product.getAll.useQuery();
     if (isLoading) return <div className='h-full w-full flex justify-center items-center'> <LoadingSpinner />  </div>
-    if (data && data.length === 0) return <div className='min-w-[150px] min-h-[60px] flex justify-center items-center'> <NotFoundInfo content={'Product not found.'} /> </div>
+    if (data && data.length === 0) return <div className='min-w-[150px] min-h-[60px] flex flex-col justify-center items-center'>
+        <NotFoundInfo content={'Product not found.'} />
+        <CreateProduct />
+    </div>
+    
     return (
         <div className='grid grid-cols-card gap-8'>
+            <div className='h-[200px] rounded-xl flex justify-center items-center bg-gradient-to-tr from-[#302e2e] to-[#020202]  ' >
+                <CreateProduct />
+            </div>
             {
                 data?.map(
                     (product) => (

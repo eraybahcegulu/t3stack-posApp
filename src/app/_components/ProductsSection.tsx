@@ -3,8 +3,8 @@ import GetProducts from './GetProducts';
 
 const ProductsSection = () => {
     return (
-        <div className="grow max-h-full overflow-x-auto p-4">
-            <GetProducts />
+        <div className="grow max-h-full overflow-x-auto px-4">
+                <GetProducts />
         </div>
     )
 }

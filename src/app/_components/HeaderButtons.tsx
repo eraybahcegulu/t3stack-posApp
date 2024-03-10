@@ -7,7 +7,6 @@ import { Avatar } from 'antd'
 import React from 'react'
 
 import { BsCurrencyDollar } from 'react-icons/bs'
-import { FaBox } from 'react-icons/fa'
 import { FiLogOut, FiShoppingCart } from 'react-icons/fi'
 import CategoriesModal from './CategoriesModal';
 import ProductsModal from './ProductsModal';

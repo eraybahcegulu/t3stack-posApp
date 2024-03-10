@@ -31,7 +31,7 @@ const CategoriesModal = () => {
 
             <Modal
                 className='dark'
-                size='md'
+                size='xl'
                 isOpen={isOpen}
                 onClose={onClose}
             >

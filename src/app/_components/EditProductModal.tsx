@@ -1,10 +1,12 @@
-import React from 'react'
-import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
+import React, { useState } from 'react'
+import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import { EditOutlined } from '@ant-design/icons';
 import { Formik, Field, Form, type FieldProps, ErrorMessage } from 'formik';
 import { api } from 'app/trpc/react';
 import toast from 'react-hot-toast';
 import LoadingButton from './LoadingButton';
+import NotFoundInfo from './NotFoundInfo';
+import LoadingSpinner from './LoadingSpinner';
 
 interface Product {
     id: number;
@@ -13,6 +15,12 @@ interface Product {
     price: number;
     createdAt: Date;
     updatedAt: Date;
+    category: Category;
+}
+
+interface Category {
+    id: number;
+    name: string;
 }
 
 interface Res {
@@ -21,7 +29,9 @@ interface Res {
 }
 
 const EditProductModal = ({ product }: { product: Product }) => {
+    const { data } = api.category.getAll.useQuery();
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [selectedCategory, setSelectedCategory] = useState<string>(product.category.id.toString());
     const ctx = api.useContext();
     const handleOpen = () => {
         onOpen();
@@ -37,6 +47,7 @@ const EditProductModal = ({ product }: { product: Product }) => {
                 toast.success(res.message)
             }
             onClose();
+
         },
         onError: (error) => {
             const errorMessage = error.data?.zodError?.fieldErrors.name;
@@ -48,6 +59,9 @@ const EditProductModal = ({ product }: { product: Product }) => {
             onClose();
         }
     })
+
+    if (!data) return <LoadingSpinner />
+    if (data?.length === 0) return <NotFoundInfo content={'Category required to edit.'} />
 
     return (
         <>
@@ -81,10 +95,20 @@ const EditProductModal = ({ product }: { product: Product }) => {
                                     return errors;
                                 }}
                                 onSubmit={async (values) => {
-                                    if (values.name === product.name && values.image === product.image && parseFloat(values.price) === product.price) {
+                                    if (
+                                        values.name === product.name
+                                        && values.image === product.image
+                                        && parseFloat(values.price) === product.price
+                                        && product.category.id === parseInt(selectedCategory)) {
                                         return toast.error('This Product already exist');
                                     }
-                                    editProduct.mutate({ id: product.id, name: values.name, image: values.image, price: parseFloat(values.price) });
+                                    editProduct.mutate({ 
+                                        id: product.id, 
+                                        name: values.name, 
+                                        image: values.image, 
+                                        price: parseFloat(values.price),
+                                        categoryId: parseInt(selectedCategory)
+                                    });
                                 }}
                             >
                                 <Form>
@@ -100,6 +124,19 @@ const EditProductModal = ({ product }: { product: Product }) => {
                                                 <Field name="image" component={ImageInput} />
                                                 <ErrorMessage name="image" component="div" className="text-red-500" />
                                             </div>
+
+                                            <Select
+                                                label="Select category"
+                                                className="max-w-xs"
+                                                defaultSelectedKeys={[product.category.id.toString()]}
+                                                onChange={(e) => setSelectedCategory(e.target.value)}
+                                            >
+                                                {data.map((category) => (
+                                                    <SelectItem key={category.id} value={category.id}>
+                                                        {category.name}
+                                                    </SelectItem>
+                                                ))}
+                                            </Select>
 
                                             <div>
                                                 <Field name="price" component={PriceInput} />

@@ -15,6 +15,7 @@ model Category {
     name      String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    products Product[]
 
     @@index([name])
 }
@@ -26,6 +27,7 @@ model Product {
     price     Float
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
+    category    Category  @relation(fields: [categoryId], references: [id])
+    categoryId  Int 
     @@index([name])
 }

@@ -10,12 +10,13 @@ import { BsCurrencyDollar } from 'react-icons/bs'
 import { FiLogOut, FiShoppingCart } from 'react-icons/fi'
 import CategoriesModal from './CategoriesModal';
 import ProductsModal from './ProductsModal';
-
+import { useSelector } from 'react-redux';
+import { type RootState } from '../store';
 const HeaderButtons = () => {
-
+    const cart = useSelector((state: RootState) => state.cart);
     return (
         <>
-            <Badge content={0} color="default" className='max-xl:mr-6' >
+            <Badge content={cart.products.length} color="default" className='max-xl:mr-6' >
                 <div className='flex-col justify-center items-center text-4xl max-md:text-xl flex max-xl:mr-8 text-blue-500 '>
                     <FiShoppingCart />
                     <span className='text-sm max-md:text-xs'>Cart</span>

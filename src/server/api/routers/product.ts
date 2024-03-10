@@ -13,6 +13,7 @@ export const productRouter = createTRPCRouter({
                 name: z.string().min(1, { message: 'Cannot be empty' }).max(20, { message: 'Max length 20 characters' }),
                 image: z.string().min(1, { message: 'Cannot be empty' }).max(300, { message: 'Max length 300 characters' }),
                 price: z.number().min(1, { message: 'Cannot be empty' }),
+                categoryId: z.number().min(1, { message: 'Cannot be empty' }),
             })
         )
         .mutation(async ({ ctx, input }) => {
@@ -24,6 +25,7 @@ export const productRouter = createTRPCRouter({
                     name: input.name,
                     image: input.image,
                     price: input.price,
+                    categoryId: input.categoryId
                 },
             });
 
@@ -34,6 +36,9 @@ export const productRouter = createTRPCRouter({
             await new Promise((resolve) => setTimeout(resolve, 1000));
             const products = await ctx.db.product.findMany({
                 orderBy: { createdAt: "desc" },
+                include: {
+                    category: true,
+                }
             });
     
             return products;
@@ -64,14 +69,17 @@ export const productRouter = createTRPCRouter({
 
         edit: publicProcedure
         .input(
+            
             z.object({ 
                 id: z.number().min(1),
                 name: z.string().min(1, { message: 'Cannot be empty' }).max(20, { message: 'Max length 20 characters' }),
                 image: z.string().min(1, { message: 'Cannot be empty' }).max(300, { message: 'Max length 300 characters' }),
                 price: z.number().min(1, { message: 'Cannot be empty' }),
+                categoryId: z.number().min(1, { message: 'Cannot be empty' }),
             }))
         .mutation(async ({ ctx, input }) => {
             // simulate a slow db call
+            console.log(input)
             await new Promise((resolve) => setTimeout(resolve, 1000));
 
             const existingProduct = await ctx.db.product.findFirst({
@@ -89,7 +97,8 @@ export const productRouter = createTRPCRouter({
                 data:{
                     name: input.name,
                     image: input.image,
-                    price: input.price
+                    price: input.price,
+                    categoryId: input.categoryId
                 }
             })
 

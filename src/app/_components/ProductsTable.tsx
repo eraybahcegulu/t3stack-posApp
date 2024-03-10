@@ -25,6 +25,10 @@ const ProductsTable = () => {
             label: "PRICE",
         },
         {
+            key: "category",
+            label: "CATEGORY",
+        },
+        {
             key: "actions",
             label: "ACTIONS",
         },
@@ -71,6 +75,9 @@ const ProductsTable = () => {
 
                                                 </TableCell>
                                             )
+                                        }
+                                        if (columnKey === "category") {
+                                            return <TableCell>{item.category.name}</TableCell>;
                                         }
                                         return <TableCell>{getKeyValue(item, columnKey)}</TableCell>;
                                     }}

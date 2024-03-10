@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IoAdd } from 'react-icons/io5'
-import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@nextui-org/react'
+import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from '@nextui-org/react'
 import { Formik, Field, Form, type FieldProps, ErrorMessage } from "formik";
 import { api } from 'app/trpc/react';
 import toast from 'react-hot-toast';
 import LoadingButton from './LoadingButton';
+import NotFoundInfo from './NotFoundInfo';
+import LoadingSpinner from './LoadingSpinner';
 
 interface Res {
     message?: string;
@@ -13,7 +15,9 @@ interface Res {
 
 const CreateProduct = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { data } = api.category.getAll.useQuery();
     const ctx = api.useContext();
+    const [selectedCategory, setSelectedCategory] = useState<string>('');
     const handleOpen = () => {
         onOpen();
     }
@@ -26,6 +30,7 @@ const CreateProduct = () => {
                 await ctx.product.getAll.invalidate();
                 toast.success(res.message)
             }
+            setSelectedCategory('');
             onClose();
         },
         onError: (error) => {
@@ -38,6 +43,10 @@ const CreateProduct = () => {
             onClose();
         }
     })
+
+    if (!data) return <LoadingSpinner />
+    if (data?.length === 0) return <NotFoundInfo content={'Category required to new products.'} />
+
     return (
         <>
             <div className='flex text-white items-center justify-center min-h-[60px] min-w-[100px] max-h-[50px] max-w-[100px] overflow-auto'>
@@ -78,7 +87,15 @@ const CreateProduct = () => {
                                     return errors;
                                 }}
                                 onSubmit={async (values) => {
-                                    createProduct.mutate({ name: values.name, image: values.image, price: parseFloat(values.price) });
+                                    if (!selectedCategory) {
+                                        return toast.error('Product category required to create')
+                                    }
+                                    createProduct.mutate({ 
+                                        name: values.name, 
+                                        image: values.image, 
+                                        price: parseFloat(values.price), 
+                                        categoryId: parseInt(selectedCategory) 
+                                    });
                                 }}
                             >
                                 <Form>
@@ -95,6 +112,18 @@ const CreateProduct = () => {
                                                 <Field name="image" component={ImageInput} />
                                                 <ErrorMessage name="image" component="div" className="text-red-500" />
                                             </div>
+
+                                            <Select
+                                                label="Select category"
+                                                className="max-w-xs"
+                                                onChange={(e) => setSelectedCategory(e.target.value)}
+                                            >
+                                                {data.map((category) => (
+                                                    <SelectItem key={category.id} value={category.id}>
+                                                        {category.name}
+                                                    </SelectItem>
+                                                ))}
+                                            </Select>
 
                                             <div>
                                                 <Field name="price" component={PriceInput} />

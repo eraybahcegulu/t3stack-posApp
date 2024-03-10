@@ -8,6 +8,7 @@ import { FaBox } from 'react-icons/fa';
 import CreateProduct from './CreateProduct';
 import { api } from 'app/trpc/react';
 import LoadingSpinner from './LoadingSpinner';
+import ProductsTable from './ProductsTable';
 
 const ProductsModal = () => {
     const { data, isLoading } = api.product.getAll.useQuery();
@@ -32,7 +33,7 @@ const ProductsModal = () => {
 
             <Modal
                 className='dark'
-                size='2xl'
+                size='4xl'
                 isOpen={isOpen}
                 onClose={onClose}
             >
@@ -42,6 +43,7 @@ const ProductsModal = () => {
 
                             <ModalBody className='p-10 flex flex-col justify-center items-center'>
                                 <CreateProduct />
+                                <ProductsTable/>
                             </ModalBody>
                         </>
                     )}

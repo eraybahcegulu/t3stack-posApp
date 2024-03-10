@@ -12,6 +12,7 @@ const DeleteCategory = ({ id }: { id: number }) => {
 
     const deleteCategory = api.category.delete.useMutation({
         onSuccess: async () => {
+            await ctx.product.getAll.fetch();
             await ctx.category.getAll.fetch();
         },
         onError: (error) => {

@@ -46,17 +46,23 @@ export const categoryRouter = createTRPCRouter({
         .mutation(async ({ ctx, input }) => {
             // simulate a slow db call
             await new Promise((resolve) => setTimeout(resolve, 1000));
-            const existingPost = await ctx.db.category.findFirst({
+            const existingCategory = await ctx.db.category.findFirst({
                 where: { id: input.id },
             });
 
-            if (!existingPost) {
+            if (!existingCategory) {
                 return { error: `Failed. Category not found.` };
             }
 
+            await ctx.db.product.deleteMany({
+                where: {
+                    categoryId: existingCategory.id
+                }
+            })
+
             await ctx.db.category.delete({
                 where: {
-                    id: existingPost.id
+                    id: existingCategory.id
                 }
             })
 

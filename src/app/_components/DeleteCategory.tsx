@@ -12,7 +12,7 @@ const DeleteCategory = ({ id }: { id: number }) => {
 
     const deleteCategory = api.category.delete.useMutation({
         onSuccess: async () => {
-            await ctx.category.getAll.invalidate();
+            await ctx.category.getAll.fetch();
         },
         onError: (error) => {
             toast.error(error.message)
@@ -27,10 +27,15 @@ const DeleteCategory = ({ id }: { id: number }) => {
                     <LoadingButton color='danger' />
                     :
                     <Button
+                    disabled={deleteCategory.isLoading}
                         onClick={() =>
                         (
                             deleteCategory.mutate({ id }))
                         }
+                        style={{
+                            opacity: deleteCategory.isLoading ? 0.5 : 1,
+                            pointerEvents: deleteCategory.isLoading ? 'none' : 'auto'
+                        }}
                         color="danger" variant="shadow"> <DeleteOutlined />
                     </Button>
             }

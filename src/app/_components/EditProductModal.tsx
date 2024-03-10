@@ -105,10 +105,10 @@ const EditProductModal = ({ product }: { product: Product }) => {
                                         && product.category.id === parseInt(selectedCategory)) {
                                         return toast.error('This Product already exist');
                                     }
-                                    editProduct.mutate({ 
-                                        id: product.id, 
-                                        name: values.name, 
-                                        image: values.image, 
+                                    editProduct.mutate({
+                                        id: product.id,
+                                        name: values.name,
+                                        image: values.image,
                                         price: parseFloat(values.price),
                                         categoryId: parseInt(selectedCategory)
                                     });
@@ -130,7 +130,7 @@ const EditProductModal = ({ product }: { product: Product }) => {
 
                                             <Select
                                                 label="Select category"
-                                                className="max-w-xs"
+
                                                 defaultSelectedKeys={[product.category.id.toString()]}
                                                 onChange={(e) => setSelectedCategory(e.target.value)}
                                             >
@@ -140,7 +140,7 @@ const EditProductModal = ({ product }: { product: Product }) => {
                                                     </SelectItem>
                                                 ))}
                                             </Select>
-
+                                            
                                             <div>
                                                 <Field name="price" component={PriceInput} />
                                                 <ErrorMessage name="price" component="div" className="text-red-500" />

@@ -25,7 +25,7 @@ const CategoriesTable = () => {
 
     return (
         <>
-            <Table className='text-white' aria-label="Category table">
+            <Table className='text-white max-w-[320px]' aria-label="Category table">
                 <TableHeader columns={columns}>
                     {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
                 </TableHeader>

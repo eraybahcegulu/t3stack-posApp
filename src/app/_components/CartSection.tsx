@@ -49,7 +49,6 @@ const CartSection = () => {
                         ))
                     )}
 
-
                 </div>
                 <div className='w-full flex flex-col gap-2 mt-auto bg-gradient-to-tr p-4  from-[#020202] to-[#272626] rounded-3xl'>
                     <Code className='w-full flex justify-between' color="warning">

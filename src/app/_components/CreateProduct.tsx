@@ -115,7 +115,6 @@ const CreateProduct = () => {
 
                                             <Select
                                                 label="Select category"
-                                                className="max-w-xs"
                                                 onChange={(e) => setSelectedCategory(e.target.value)}
                                             >
                                                 {data.map((category) => (

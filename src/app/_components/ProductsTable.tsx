@@ -6,6 +6,7 @@ import { api } from 'app/trpc/react';
 import NotFoundInfo from './NotFoundInfo';
 import { Image } from "@nextui-org/react";
 import DeleteProduct from "./DeleteProduct";
+import EditProductModal from "./EditProductModal";
 
 
 const ProductsTable = () => {
@@ -29,7 +30,7 @@ const ProductsTable = () => {
             label: "ACTIONS",
         },
     ];
-    
+
     if (data && data.length === 0) return <div className='min-w-[150px] min-h-[60px] flex justify-center items-center'> <NotFoundInfo content={'Product not found.'} /> </div>
 
     return (
@@ -50,7 +51,7 @@ const ProductsTable = () => {
                                             return (
                                                 <TableCell>
                                                     <div className="flex flex-row gap-2">
-                                                        <Button variant="shadow"> <EditOutlined /></Button>
+                                                       <EditProductModal product={item}/>
                                                         <DeleteProduct id={item.id} />
                                                     </div>
                                                 </TableCell>

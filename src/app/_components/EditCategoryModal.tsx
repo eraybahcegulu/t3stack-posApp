@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
 import { EditOutlined } from '@ant-design/icons';
-import { ErrorMessage, Field, FieldProps, Form, Formik } from 'formik';
+import { Formik, Field , Form,  type FieldProps, ErrorMessage } from 'formik';
 import { api } from 'app/trpc/react';
 import toast from 'react-hot-toast';
 import LoadingButton from './LoadingButton';

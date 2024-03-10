@@ -9,5 +9,3 @@ export const useSearchStore = create<SearchState>()((set) => ({
     text: '',
     setText: (newText: string) => set({ text: newText }),
 }))
-
-export default useSearchStore;

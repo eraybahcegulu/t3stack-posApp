@@ -6,22 +6,29 @@ import LoadingSpinner from './LoadingSpinner';
 import NotFoundInfo from './NotFoundInfo';
 import { Card, CardBody, CardFooter, Image } from '@nextui-org/react';
 import CreateProduct from './CreateProduct';
+import { useSearchStore } from '../zustand/searchStore'
 
 const GetProducts = () => {
     const { data, isLoading } = api.product.getAll.useQuery();
+    const { text } = useSearchStore();
+
     if (isLoading) return <div className='h-full w-full flex justify-center items-center'> <LoadingSpinner />  </div>
     if (data && data.length === 0) return <div className='min-w-[150px] min-h-[60px] flex flex-col justify-center items-center'>
         <NotFoundInfo content={'Product not found.'} />
         <CreateProduct />
     </div>
-    
+
+    const filteredProducts = data?.filter((product) =>
+        product.name.toLowerCase().includes(text.toLowerCase())
+    );
+
     return (
         <div className='grid grid-cols-card gap-8'>
-            <div className='h-[200px] rounded-xl flex justify-center items-center bg-gradient-to-tr from-[#302e2e] to-[#020202]  ' >
+            <div className='h-[200px] rounded-xl flex justify-center items-center bg-gradient-to-tr from-[#302e2e] to-[#020202]' >
                 <CreateProduct />
             </div>
             {
-                data?.map(
+                filteredProducts?.map(
                     (product) => (
                         <Card key={product.id} shadow="sm" isPressable className='h-[200px] hover:scale-105 dark' >
                             <CardBody className="overflow-visible p-0">

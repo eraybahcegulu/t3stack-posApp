@@ -36,7 +36,7 @@ const ProductsTable = () => {
     return (
         <>
             <Table
-        
+
                 className='text-white max-h-[400px]' aria-label="Product table">
                 <TableHeader columns={columns}>
                     {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
@@ -51,7 +51,7 @@ const ProductsTable = () => {
                                             return (
                                                 <TableCell>
                                                     <div className="flex flex-row gap-2">
-                                                       <EditProductModal product={item}/>
+                                                        <EditProductModal product={item} />
                                                         <DeleteProduct id={item.id} />
                                                     </div>
                                                 </TableCell>

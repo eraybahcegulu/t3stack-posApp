@@ -7,11 +7,13 @@ import NotFoundInfo from './NotFoundInfo';
 import { Card, CardBody, CardFooter, Image } from '@nextui-org/react';
 import CreateProduct from './CreateProduct';
 import { useSearchStore } from '../zustand/searchStore'
+import { useDispatch } from 'react-redux';
+import { addToCart } from "../redux-toolkit/cartSlice";
 
 const GetProducts = () => {
     const { data, isLoading } = api.product.getAll.useQuery();
     const { text } = useSearchStore();
-
+    const dispatch = useDispatch();
     if (isLoading) return <div className='h-full w-full flex justify-center items-center'> <LoadingSpinner />  </div>
     if (data && data.length === 0) return <div className='min-w-[150px] min-h-[60px] flex flex-col justify-center items-center'>
         <NotFoundInfo content={'Product not found.'} />
@@ -30,9 +32,10 @@ const GetProducts = () => {
             {
                 filteredProducts?.map(
                     (product) => (
-                        <Card key={product.id} shadow="sm" isPressable className='h-[200px] hover:scale-105 dark' >
+                        <Card onClick={() => dispatch(addToCart(product))} key={product.id} shadow="sm" isPressable className='h-[200px] hover:scale-105 dark'>
                             <CardBody className="overflow-visible p-0">
                                 <Image
+                                
                                     shadow="sm"
                                     radius="lg"
                                     width="100%"
@@ -43,7 +46,7 @@ const GetProducts = () => {
                             </CardBody>
                             <CardFooter className="text-small justify-between">
                                 <b>{product.name}</b>
-                                <p className="text-default-500">${product.price}</p>
+                                <p className="text-default-500">€{product.price}</p>
                             </CardFooter>
                         </Card>
                     ))

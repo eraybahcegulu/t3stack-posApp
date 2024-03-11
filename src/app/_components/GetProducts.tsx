@@ -24,7 +24,7 @@ const GetProducts = () => {
     </div>
 
     const filteredProducts = data?.filter((product) =>
-        product.name.toLowerCase().includes(text.toLowerCase()) &&
+        product.name.toLowerCase().includes(text.trim().toLowerCase()) &&
         (categoryId === ''|| product.categoryId === parseInt(categoryId))
     );
 

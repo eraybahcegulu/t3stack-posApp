@@ -13,12 +13,14 @@ interface Product {
 interface CartState {
     products: Product[];
     subTotal: number;
+    total: number;
     vat: number;
 }
 
 const initialState = {
     products: [],
     subTotal: 0,
+    total: 0,
     vat: 10,
 };
 
@@ -37,6 +39,7 @@ const cartSlice = createSlice({
                 state.products.push(newProduct);
                 state.subTotal += action.payload.price;
             }
+            state.total = state.subTotal + (state.subTotal * state.vat) / 100;
         },
         removeFromCart: (state, action: PayloadAction<Product>) => {
             const productIdToRemove = action.payload.id;
@@ -45,12 +48,14 @@ const cartSlice = createSlice({
             if (removedProduct) {
                 state.subTotal -= removedProduct.price * removedProduct.quantity!;
             }
+            state.total = state.subTotal + (state.subTotal * state.vat) / 100;
         },
         increaseQuantity: (state, action: PayloadAction<Product>) => {
             const product = state.products.find((p) => p.id === action.payload.id);
             if (product?.quantity !== undefined) {
                 product.quantity += 1;
                 state.subTotal += product.price;
+                state.total = state.subTotal + (state.subTotal * state.vat) / 100;
             }
         },
         decreaseQuantity: (state, action: PayloadAction<Product>) => {
@@ -59,19 +64,22 @@ const cartSlice = createSlice({
                 if (product.quantity > 1) {
                     product.quantity -= 1;
                     if (product.price) {
-                        state.subTotal -= product.price;
+                        state.subTotal -= product.price
                     }
+                    state.total = state.subTotal + (state.subTotal * state.vat) / 100
                 } else {
                     state.products = state.products.filter((p) => p.id !== action.payload.id);
                     if (product.price) {
-                        state.subTotal -= product.price;
+                        state.subTotal -= product.price
                     }
+                    state.total = state.subTotal + (state.subTotal * state.vat) / 100
                 }
             }
         },
         clearCart: (state) => {
             state.products = initialState.products;
             state.subTotal = initialState.subTotal;
+            state.total = initialState.total;
         },
     },
 });

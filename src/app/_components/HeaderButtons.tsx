@@ -3,15 +3,13 @@
 import { UserOutlined } from '@ant-design/icons'
 import { Badge } from '@nextui-org/react';
 import { Avatar } from 'antd'
-
 import React from 'react'
-
-import { BsCurrencyDollar } from 'react-icons/bs'
 import { FiLogOut, FiShoppingCart } from 'react-icons/fi'
 import CategoriesModal from './CategoriesModal';
 import ProductsModal from './ProductsModal';
 import { useSelector } from 'react-redux';
 import { type RootState } from '../store';
+import SalesModal from './SalesModal';
 const HeaderButtons = () => {
     const cart = useSelector((state: RootState) => state.cart);
     return (
@@ -27,12 +25,7 @@ const HeaderButtons = () => {
                 <CategoriesModal />
                 <ProductsModal/>
 
-                <Badge content={0} color="default">
-                    <div className='flex flex-col justify-center items-center cursor-pointer text-green-700 hover:scale-110 transition-all'>
-                        <BsCurrencyDollar />
-                        <span className='text-sm max-md:text-xs'>Sales</span>
-                    </div>
-                </Badge>
+                <SalesModal/>
 
 
                 <div className='flex flex-col justify-center items-center cursor-pointer text-red-600 hover:scale-110 transition-all'>

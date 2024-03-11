@@ -3,11 +3,12 @@
 import { Button, Chip, Code } from '@nextui-org/react'
 import React from 'react'
 import NotFoundInfo from './NotFoundInfo'
-import { ArrowRightOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { Image } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
 import { type RootState } from '../store';
 import { increaseQuantity, decreaseQuantity, clearCart } from '../redux-toolkit/cartSlice'
+import PaymentModal from './PaymentModal';
 
 const CartSection = () => {
     const cart = useSelector((state: RootState) => state.cart);
@@ -25,11 +26,9 @@ const CartSection = () => {
                                     <div className='flex flex-col gap-1'>
                                         <Image
                                             isZoomed
-                                            width={100}
-                                            height={100}
                                             src={product.image}
                                             alt={product.name}
-                                            className="rounded-lg"
+                                            className="rounded-lg h-[75px] w-[150px]"
                                         >
                                         </Image>
                                         <span>{product.name}</span>
@@ -61,16 +60,19 @@ const CartSection = () => {
                     </Code>
                     <Code className='w-full grow flex justify-between' color="success">
                         <span>TOTAL</span>
-                        <span>€{(cart.subTotal + cart.subTotal * cart.vat / 100).toFixed(2)}</span>
+                        <span>€{cart.total.toFixed(2)}</span>
                     </Code>
                 </div>
                 <div className='mt-auto w-full justify-center items-center text-center flex flex-row gap-2'>
-                    <Button onClick={() => dispatch(clearCart())} className='w-full' radius='full' color="danger" variant="shadow">
+                    <Button 
+                    style={{
+                        opacity: cart.products.length === 0 ? 0.5 : 1,
+                        pointerEvents: cart.products.length === 0 ? 'none' : 'auto'
+                    }} 
+                    onClick={() => dispatch(clearCart())} className='w-full' radius='full' color="danger" variant="shadow">
                         Clear
                     </Button>
-                    <Button className="w-full bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg" radius='full' variant="shadow">
-                        Continue <ArrowRightOutlined className='font-bold' />
-                    </Button>
+                    <PaymentModal/>
                 </div>
             </div>
         </div>

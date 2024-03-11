@@ -29,7 +29,7 @@ const GetCategories = () => {
                             className='text-white rounded-full flex items-center justify-center min-h-[50px] min-w-[200px] max-h-[50px] 
                         max-w-[200px] cursor-pointer transition-all'>
                             <span className='w-full overflow-auto justify-center text-center'>
-                                {category.name}
+                                {category.name.toUpperCase()}
                             </span>
                         </Button>
                     ))

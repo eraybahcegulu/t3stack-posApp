@@ -140,7 +140,7 @@ const EditProductModal = ({ product }: { product: Product }) => {
                                                     </SelectItem>
                                                 ))}
                                             </Select>
-                                            
+
                                             <div>
                                                 <Field name="price" component={PriceInput} />
                                                 <ErrorMessage name="price" component="div" className="text-red-500" />
@@ -185,7 +185,7 @@ const PriceInput = ({ field }: FieldProps) => {
         label="Price"
         startContent={
             <div className="pointer-events-none flex items-center">
-                <span className="text-default-400 text-small">$</span>
+                <span className="text-default-400 text-small">€</span>
             </div>
         }
     />;

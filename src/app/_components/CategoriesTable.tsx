@@ -26,7 +26,7 @@ const CategoriesTable = () => {
 
     return (
         <>
-            <Table className='text-white max-w-[320px]' aria-label="Category table">
+            <Table className='text-white max-w-[600px] max-h-[600px]' aria-label="Category table">
                 <TableHeader columns={columns}>
                     {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
                 </TableHeader>
@@ -36,6 +36,13 @@ const CategoriesTable = () => {
                             <TableRow key={item.id}>
                                 {
                                     (columnKey) => {
+                                        if (columnKey === "name") {
+                                            return (
+                                                <TableCell >
+                                                    {item.name.toUpperCase()}
+                                                </TableCell>
+                                            );
+                                        }
                                         if (columnKey === "actions") {
                                             return (
                                                 <TableCell className='flex flex-row gap-2'>

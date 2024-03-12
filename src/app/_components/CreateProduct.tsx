@@ -105,12 +105,12 @@ const CreateProduct = () => {
 
                                             <div>
                                                 <Field name="name" component={NameInput} />
-                                                <ErrorMessage name="name" component="div" className="text-red-500" />
+                                                <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
                                             </div>
 
                                             <div>
                                                 <Field name="image" component={ImageInput} />
-                                                <ErrorMessage name="image" component="div" className="text-red-500" />
+                                                <ErrorMessage name="image" component="div" className="text-red-500 text-sm" />
                                             </div>
 
                                             <Select
@@ -119,14 +119,14 @@ const CreateProduct = () => {
                                             >
                                                 {data.map((category) => (
                                                     <SelectItem key={category.id} value={category.id}>
-                                                        {category.name}
+                                                        {category.name.toUpperCase()}
                                                     </SelectItem>
                                                 ))}
                                             </Select>
 
                                             <div>
                                                 <Field name="price" component={PriceInput} />
-                                                <ErrorMessage name="price" component="div" className="text-red-500" />
+                                                <ErrorMessage name="price" component="div" className="text-red-500 text-sm" />
                                             </div>
 
                                         </div>

@@ -120,12 +120,12 @@ const EditProductModal = ({ product }: { product: Product }) => {
                                         <div className='flex flex-col gap-2'>
                                             <div >
                                                 <Field name="name" component={NameInput} />
-                                                <ErrorMessage name="name" component="div" className="text-red-500" />
+                                                <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
                                             </div>
 
                                             <div>
                                                 <Field name="image" component={ImageInput} />
-                                                <ErrorMessage name="image" component="div" className="text-red-500" />
+                                                <ErrorMessage name="image" component="div" className="text-red-500 text-sm" />
                                             </div>
 
                                             <Select
@@ -143,7 +143,7 @@ const EditProductModal = ({ product }: { product: Product }) => {
 
                                             <div>
                                                 <Field name="price" component={PriceInput} />
-                                                <ErrorMessage name="price" component="div" className="text-red-500" />
+                                                <ErrorMessage name="price" component="div" className="text-red-500 text-sm" />
                                             </div>
                                         </div>
                                     </ModalBody>

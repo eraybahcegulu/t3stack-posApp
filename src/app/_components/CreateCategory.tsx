@@ -77,7 +77,7 @@ const CreateCategory = () => {
                                     <ModalBody>
                                         <div>
                                             <Field name="name" component={NameInput} />
-                                            <ErrorMessage name="name" component="div" className="text-red-500" />
+                                            <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
                                         </div>
                                     </ModalBody>
                                     <ModalFooter>

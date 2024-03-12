@@ -99,7 +99,7 @@ const PaymentModal = () => {
                         <>
 
                             <ModalHeader className="flex flex-col gap-1">Confirm</ModalHeader>
-                            <ModalBody className='flex flex-row gap-10 p-4'>
+                            <ModalBody className='flex flex-row max-xl:flex-col gap-10 p-4'>
                                 <div className='flex flex-col gap-5 '>
                                     <Table className='text-white min-w-[725px] max-h-[500px]' aria-label="Category table">
                                         <TableHeader columns={columns}>
@@ -173,11 +173,15 @@ const PaymentModal = () => {
                                         if (values.name.length === 0) {
                                             errors.name = "Name required to confirm";
                                         }
-                                        if (values.surname.length === 0) {
+                                        if (values.surname.trim().length === 0) {
                                             errors.surname = "Surname required to confirm";
                                         }
-                                        if (values.email.length === 0) {
+                                        if (!values.email) {
                                             errors.email = "Email required to confirm";
+                                        } else if (
+                                            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+                                        ) {
+                                            errors.email = 'Invalid email address';
                                         }
                                         return errors;
                                     }}
@@ -200,17 +204,17 @@ const PaymentModal = () => {
                                         <div className='flex flex-col gap-4'>
                                             <div>
                                                 <Field name="name" component={NameInput} />
-                                                <ErrorMessage name="name" component="div" className="text-red-500" />
+                                                <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
                                             </div>
 
                                             <div>
                                                 <Field name="surname" component={SurnameInput} />
-                                                <ErrorMessage name="surname" component="div" className="text-red-500" />
+                                                <ErrorMessage name="surname" component="div" className="text-red-500 text-sm" />
                                             </div>
 
                                             <div>
                                                 <Field name="email" component={EmailInput} />
-                                                <ErrorMessage name="email" component="div" className="text-red-500" />
+                                                <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
                                             </div>
                                             <div className='w-full flex justify-end items-end'>
                                                 {

@@ -12,7 +12,7 @@ export const productRouter = createTRPCRouter({
             z.object({
                 name: z.string().min(1, { message: 'Cannot be empty' }).max(20, { message: 'Max length 20 characters' }),
                 image: z.string().min(1, { message: 'Cannot be empty' }).max(300, { message: 'Max length 300 characters' }),
-                price: z.number().min(1, { message: 'Cannot be empty' }),
+                price: z.number().min(0.001, { message: 'Cannot be empty' }),
                 categoryId: z.number().min(1, { message: 'Cannot be empty' }),
             })
         )
@@ -74,7 +74,7 @@ export const productRouter = createTRPCRouter({
                 id: z.number().min(1),
                 name: z.string().min(1, { message: 'Cannot be empty' }).max(20, { message: 'Max length 20 characters' }),
                 image: z.string().min(1, { message: 'Cannot be empty' }).max(300, { message: 'Max length 300 characters' }),
-                price: z.number().min(1, { message: 'Cannot be empty' }),
+                price: z.number().min(0.01, { message: 'Cannot be empty' }),
                 categoryId: z.number().min(1, { message: 'Cannot be empty' }),
             }))
         .mutation(async ({ ctx, input }) => {

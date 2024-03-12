@@ -19,8 +19,8 @@ interface CartState {
 
 const initialState = {
     products: [],
-    subTotal: 0,
-    total: 0,
+    subTotal: 0.00,
+    total: 0.00,
     vat: 10,
 };
 

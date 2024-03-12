@@ -50,29 +50,35 @@ const CartSection = () => {
 
                 </div>
                 <div className='w-full flex flex-col gap-2 mt-auto bg-gradient-to-tr p-4  from-[#020202] to-[#272626] rounded-3xl'>
-                    <Code className='w-full flex justify-between' color="warning">
+                    <Code
+                        style={{ opacity: cart.products.length === 0 ? 0.5 : 1, }}
+                        className='w-full flex justify-between' color="warning">
                         <span>SUBTOTAL</span>
                         <span>€{cart.subTotal.toFixed(2)}</span>
                     </Code>
-                    <Code className='w-full flex justify-between' color="danger">
+                    <Code
+                        style={{ opacity: cart.products.length === 0 ? 0.5 : 1, }}
+                        className='w-full flex justify-between' color="danger">
                         <span>VAT {cart.vat}%</span>
                         <span>€{(cart.subTotal * cart.vat / 100).toFixed(2)}</span>
                     </Code>
-                    <Code className='w-full grow flex justify-between' color="success">
+                    <Code
+                        style={{ opacity: cart.products.length === 0 ? 0.5 : 1, }}
+                        className='w-full grow flex justify-between' color="success">
                         <span>TOTAL</span>
                         <span>€{cart.total.toFixed(2)}</span>
                     </Code>
                 </div>
                 <div className='mt-auto w-full justify-center items-center text-center flex flex-row gap-2'>
-                    <Button 
-                    style={{
-                        opacity: cart.products.length === 0 ? 0.5 : 1,
-                        pointerEvents: cart.products.length === 0 ? 'none' : 'auto'
-                    }} 
-                    onClick={() => dispatch(clearCart())} className='w-full' radius='full' color="danger" variant="shadow">
+                    <Button
+                        style={{
+                            opacity: cart.products.length === 0 ? 0.5 : 1,
+                            pointerEvents: cart.products.length === 0 ? 'none' : 'auto'
+                        }}
+                        onClick={() => dispatch(clearCart())} className='w-full' radius='full' color="danger" variant="shadow">
                         Clear
                     </Button>
-                    <PaymentModal/>
+                    <PaymentModal />
                 </div>
             </div>
         </div>

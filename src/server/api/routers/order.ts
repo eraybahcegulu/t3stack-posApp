@@ -49,15 +49,20 @@ export const orderRouter = createTRPCRouter({
         }),
 
 
-        getAll: publicProcedure.query(async ({ ctx }) => {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            const orders = await ctx.db.order.findMany({
-                orderBy: { createdAt: "desc" },
-                include: {
-                    items: true
+    getAll: publicProcedure.query(async ({ ctx }) => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        const orders = await ctx.db.order.findMany({
+            orderBy: { createdAt: "desc" },
+            include: {
+                items: {
+                    include: {
+                        product: true
+                    }
                 }
-            });
-    
-            return orders;
-        }),
+            }
+
+        });
+
+        return orders;
+    }),
 });
